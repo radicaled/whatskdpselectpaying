@@ -26,7 +26,13 @@ const KdpSelectChart = Vue.extend({
   }),
   ready() {
     google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(this.drawChart.bind(this));
+  },
+  watch: {
+    'database': function(val, oldVal) {
+      if (val) {
+        google.charts.setOnLoadCallback(this.drawChart.bind(this));
+      }
+    }
   },
   methods: {
     drawChart() {
