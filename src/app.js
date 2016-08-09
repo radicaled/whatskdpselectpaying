@@ -20,12 +20,13 @@ Vue.filter('number', value => numberWithCommas(value));
 const app = new Vue({
   el: '#app',
   template: `
-    <div class='container main-info'>      
+    <div class='container main-info'>
       <h1>What's KDP Select paying these days?</h1>
       <h3>{{ lastKnownDate | date}}: \${{ lastKnownValue }}</h3>
       <p>How many page reads did you have that month?</p>
       <input type="number"
         v-model="pageReads"
+        class="form-control page-reads"
         placeholder="A nice, round number" />
       <div v-if="pageReads > 0" transition="mad-money">
         <h2>
