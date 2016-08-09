@@ -69,7 +69,10 @@ const App = Vue.extend({
   template: `
     <div class='container main-info'>
       <h1>What's KDP Select paying these days?</h1>
-      <h3>{{ lastKnownDate | date}}: \${{ lastKnownValue }}</h3>
+      <h3>
+        {{ lastKnownDate | date}}: \${{ lastKnownValue }}
+        <span class='small'>per page</span>
+      </h3>
       <p>How many page reads did you have that month?</p>
       <input type="number"
         v-model="pageReads"
