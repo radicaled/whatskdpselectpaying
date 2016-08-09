@@ -4,7 +4,7 @@ const watch = require('gulp-watch');
 const distPath = './dist';
 
 gulp.task('watch', () => {
-  return watch(['src/**/*', 'data/**/*'], { ignoreInitial: false })
+  return watch(['src/**/*', 'data/**/*', 'CNAME'], { ignoreInitial: false })
     .pipe(gulp.dest(distPath));
 });
 
@@ -19,3 +19,8 @@ gulp.task('copy-data', () => {
   return gulp.src('./data/**/*')
     .pipe(gulp.dest(distPath));
 });
+
+gulp.task('copy-cname', () => {
+  return gulp.src('.CNAME')
+    .pipe(gulp.dest(distPath));
+})
