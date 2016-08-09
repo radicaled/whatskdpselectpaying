@@ -17,8 +17,49 @@ const database = fetch('/kenpc.json')
 Vue.filter('date', value => moment(new Date(value)).format('MMMM YYYY'));
 Vue.filter('number', value => numberWithCommas(value));
 
-const app = new Vue({
-  el: '#app',
+const KdpSelectChart = Vue.extend({
+  template: `
+    <div></div>
+  `,
+  props: ["database"],
+  data: () => ({
+  }),
+  ready() {
+    google.charts.load('current', {'packages':['corechart']});
+    google.charts.setOnLoadCallback(this.drawChart.bind(this));
+  },
+  methods: {
+    drawChart() {
+      if (!this.database) return;
+
+      const chartData = [
+        ["Month", "Per Page Payout"]
+      ];
+      const options = {
+        vAxis: {
+          format: 'currency'
+        }
+      };
+      const formatter = new google.visualization.NumberFormat({
+        prefix: '$',
+        fractionDigits: 6
+      });
+
+      for(const date of Object.keys(this.database)) {
+        chartData.push([new Date(date), this.database[date]]);
+      }
+
+      const chart = new google.visualization.LineChart(this.$el);
+      const data = google.visualization.arrayToDataTable(chartData);
+
+      formatter.format(data, 1);
+      chart.draw(data, options);
+    }
+  }
+});
+
+
+const App = Vue.extend({
   template: `
     <div class='container main-info'>
       <h1>What's KDP Select paying these days?</h1>
@@ -54,13 +95,17 @@ const app = new Vue({
           </tbody>
         </table>
       </div>
+      <kdp-select-chart :database="database" />
     </div>
   `,
-  data: {
+  components: {
+    'kdp-select-chart': KdpSelectChart
+  },
+  data: () => ({
     database: {},
     pageReads: null,
     pastGross: []
-  },
+  }),
   computed: {
     lastKnownDate() {
       const dates = Object.keys(this.database);
@@ -105,3 +150,11 @@ const app = new Vue({
     });
   }
 });
+
+const mountedApplication = new Vue({
+  el: '#app',
+  template: `<app />`,
+  components: {
+    'app': App
+  }
+})
