@@ -1,0 +1,21 @@
+.main-info {
+  text-align: center;
+}
+
+.mad-money-transition {
+  transition: all .5s ease;
+  opacity: 1;
+}
+
+.mad-money-enter {
+  opacity: 0;
+}
+.mad-money-leave {
+  opacity: 0;
+}
+
+.main-info table {
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+}
