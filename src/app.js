@@ -153,7 +153,7 @@ const App = Vue.extend({
 
 const mountedApplication = new Vue({
   el: '#app',
-  template: `<app />`,
+  template: `<div><app /></div>`,
   components: {
     'app': App
   }
