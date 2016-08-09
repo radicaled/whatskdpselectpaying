@@ -33,7 +33,7 @@ const app = new Vue({
           {{pageReads | number}} pages at \${{ lastKnownValue }}...
         </h2>
         <h3>
-          You would have made about {{madMonies | currency}}.
+          You should have made about {{madMonies | currency}}.
         </h3>
         <p>In the past, you would've made...</p>
 
